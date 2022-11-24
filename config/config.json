@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "bishal",
+    "password": "BishalPassword#12345",
+    "database": "saras_mart_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "bishal",
+    "password": "BishalPassword#12345",
+    "database": "saras_mart_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "bishal",
+    "password": "BishalPassword#12345",
+    "database": "saras_mart_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
