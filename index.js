@@ -18,6 +18,10 @@ function main() {
 
   dotenv.config();
 
+  app.use("/api", function (req, res) {
+    res.json({ status: "server is running" });
+  });
+
   app.use("/api/category", categoryRoute);
   app.use("/api/productType", productTypeRoute);
   app.use("/api/product", productRoute);
