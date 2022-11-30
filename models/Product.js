@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 
       Product.belongsTo(models.ProductType, { foreignKey: "productTypeId" });
 
-      Product.belongsTo(models.ProductImage, {
+      Product.hasMany(models.ProductImage, {
         foreignKey: "productId",
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
