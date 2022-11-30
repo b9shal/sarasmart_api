@@ -2,6 +2,9 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const categoryRoute = require("./routes/category");
+const productTypeRoute = require("./routes/productType.route");
+const productRoute = require("./routes/product.route");
+const productImageRoute = require("./routes/productImage.route");
 
 function main() {
   const app = express();
@@ -13,9 +16,14 @@ function main() {
   dotenv.config();
 
   app.use("/api/category", categoryRoute);
+  app.use("/api/productType", productTypeRoute);
+  app.use("/api/product", productRoute);
+  app.use("/api/productImage", productImageRoute);
 
-  app.listen(process.env.APP_PORT || 5000, function () {
-    console.log("app is running at port 5000");
+  const port = process.env.APP_PORT;
+
+  app.listen(port || 5001, function () {
+    console.log(`app is running at port${port}`);
   });
 }
 

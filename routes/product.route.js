@@ -1,14 +1,15 @@
 const express = require("express");
-const { Category } = require("../models");
+const { ProductType, Product } = require("../models");
 
 const router = express.Router();
 
-
 router.get("/getAll", async function (req, res) {
   try {
-    const categories = await Category.findAll();
+    const data = await Product.findAll({
+      include: [{ model: ProductType, attributes: ["name"] }],
+    });
 
-    res.status(200).json({ data: categories, message: "operation successful" });
+    res.status(200).json({ data, message: "operation successful" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "operation failed" });
@@ -17,11 +18,11 @@ router.get("/getAll", async function (req, res) {
 
 router.post("/add", async function (req, res) {
   try {
-    const categories = await Category.create({
+    const data = await Product.create({
       ...req.body,
     });
 
-    res.status(200).json({ data: categories, message: "operation successful" });
+    res.status(200).json({ data, message: "operation successful" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "operation failed" });
@@ -30,7 +31,7 @@ router.post("/add", async function (req, res) {
 
 router.patch("/update/:id", async function (req, res) {
   try {
-    await Category.update(
+    await Product.update(
       { ...req.body },
       {
         where: {
@@ -48,7 +49,7 @@ router.patch("/update/:id", async function (req, res) {
 
 router.delete("/delete/:id", async function (req, res) {
   try {
-    const categories = await Category.destroy({
+    await Product.destroy({
       where: {
         id: req.params.id,
       },
