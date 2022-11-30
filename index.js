@@ -5,6 +5,7 @@ const categoryRoute = require("./routes/category");
 const productTypeRoute = require("./routes/productType.route");
 const productRoute = require("./routes/product.route");
 const productImageRoute = require("./routes/productImage.route");
+const { default: helmet } = require("helmet");
 
 function main() {
   const app = express();
@@ -12,6 +13,8 @@ function main() {
   app.use(express.json());
 
   app.use(cors());
+
+  app.use(helmet());
 
   dotenv.config();
 
