@@ -1,10 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const categoryRoute = require("./routes/category");
-const productTypeRoute = require("./routes/productType.route");
-const productRoute = require("./routes/product.route");
-const productImageRoute = require("./routes/productImage.route");
+const categoryRoute = require("./routes/categoryRoute");
+const productTypeRoute = require("./routes/productTypeRoute");
+const productRoute = require("./routes/productRoute");
+const productImageRoute = require("./routes/productImageRoute");
 const { default: helmet } = require("helmet");
 
 function main() {
