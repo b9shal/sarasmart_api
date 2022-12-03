@@ -15,6 +15,33 @@ router.get("/getAll", async function (req, res) {
   }
 });
 
+
+router.get("/getById/:categoryId", async function (req, res) {
+  try {
+    const categories = await Category.findAll({
+      where: {
+        id: req.params.categoryId,
+      },
+      include: {
+        model: ProductType,
+        attributes: ["name"],
+        include: {
+          model: Product,
+          include: {
+            model: ProductImage,
+            attributes,
+          },
+        },
+      },
+    });
+
+    res.status(200).json({ data: categories, message: "operation successful" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "operation failed" });
+  }
+});
+
 router.post("/add", async function (req, res) {
   try {
     const categories = await Category.create({

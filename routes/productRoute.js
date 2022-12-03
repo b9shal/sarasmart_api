@@ -1,12 +1,15 @@
 const express = require("express");
-const { ProductType, Product } = require("../models");
+const { ProductType, Product, ProductImage } = require("../models");
 
 const router = express.Router();
 
 router.get("/getAll", async function (req, res) {
   try {
     const data = await Product.findAll({
-      include: [{ model: ProductType, attributes: ["name"] }],
+      include: [
+        { model: ProductType, attributes: ["name"] },
+        { model: ProductImage, attributes: ["id", "imageUrl"] },
+      ],
     });
 
     res.status(200).json({ data, message: "operation successful" });

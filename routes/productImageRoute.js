@@ -1,37 +1,39 @@
 const express = require("express");
 const { ProductImage } = require("../models");
 const fileUpload = require("../utils/fileUpload");
+const models = require("../models");
 
 const router = express.Router();
 
-router.post(
-  "/add/:productId",
-  // async function (req, res, next) {
-  //   try {
-  //     const data = await ProductImage.createMany({
-  //       imageUrl: req.body.productImage,
-  //     });
+router.post("/add/:productId", fileUpload, async function (req, res) {
+  try {
+    const images = req.files.map((file) => ({
+      imageUrl: file.path,
+      productId: req.params.productId,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }));
 
-  //     res.status(200).json({ data, message: "operation successful" });
+    await models.sequelize.queryInterface.bulkInsert(
+      models.ProductImage.getTableName(),
+      images
+    );
 
-  //     next();
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.status(500).json({ message: "operation failed" });
-  //   }
-  // },
-  fileUpload
-);
+    res.json({ data: images, message: "success" });
+  } catch (err) {
+    res.json({ message: "error" });
+  }
+});
 
-router.delete("/delete/:imageId", async function (req, res) {
+router.delete("/delete", async function (req, res) {
   try {
     await ProductImage.destroy({
       where: {
-        id: req.params.imageId,
+        id: req.body.imageIds,
       },
     });
 
-    res.status(200).json({ message: "operation successful" });
+    res.status(200).json({ message: "request successful" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "operation failed" });

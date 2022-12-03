@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const path = require("path");
 const categoryRoute = require("./routes/categoryRoute");
 const productTypeRoute = require("./routes/productTypeRoute");
 const productRoute = require("./routes/productRoute");
@@ -12,15 +13,12 @@ function main() {
 
   app.use(express.json());
 
+  dotenv.config();
   app.use(cors());
 
   app.use(helmet());
 
-  dotenv.config();
-
-  app.use("/api", function (req, res) {
-    res.json({ status: "server is running" });
-  });
+  app.use("/api", express.static("public"));
 
   app.use("/api/category", categoryRoute);
   app.use("/api/productType", productTypeRoute);
@@ -29,8 +27,8 @@ function main() {
 
   const port = process.env.APP_PORT;
 
-  app.listen(port || 5001, function () {
-    console.log(`app is running at port${port}`);
+  app.listen(port, function () {
+    console.log(`app is running at port ${port}`);
   });
 }
 
