@@ -25,7 +25,7 @@ function main() {
   app.use("/api/product", productRoute);
   app.use("/api/productImage", productImageRoute);
 
-  const port = process.env.APP_PORT;
+  const port = process.env.APP_PORT || 5001;
 
   app.listen(port, function () {
     console.log(`app is running at port ${port}`);
