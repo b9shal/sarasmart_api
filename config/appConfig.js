@@ -2,6 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
+const dbClient = require("../models");
+
 const app = express();
 const router = express.Router();
 
@@ -12,8 +14,6 @@ const appConfig = function () {
 
   dotenv.config();
 
-  app.use("/api", router);
-
   app.listen(process.env.APP_PORT || 5000, function () {
     console.log("app is running at port 5000");
   });
@@ -22,4 +22,5 @@ const appConfig = function () {
 module.exports = {
   router,
   appConfig,
+  dbClient,
 };
